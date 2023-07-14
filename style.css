@@ -1,0 +1,68 @@
+html,body{
+  margin: 0;
+  padding: 0;
+}
+#container{
+  position: fixed;
+  top:0; left:0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+}
+
+p:first-child {
+  display:none;
+}
+
+.viewer {
+  position:absolute;
+  width: 100%; height: 100%;
+  min-width: 100%; max-width: 100%;
+  user-select: none;
+}
+
+#myPanoViewer2 {
+  pointer-events:none;
+}
+
+#myPanoViewer1 .panoviewer-control {
+  z-index:100;
+  opacity:1 !important;
+}
+
+#myPanoViewer2 .panoviewer-control {
+  display:none;
+}
+
+.fullscreen-container {
+  position:absolute;
+}
+
+
+#toolbar {
+  position:absolute;
+  z-index:200;
+  padding:10px;
+  text-align:center;
+  width:calc(100%-20px);
+  user-select: none;
+}
+
+#toolbar > * {
+  display:inline-block;
+  vertical-align:middle;
+}
+
+#toolbar b {
+  text-shadow:0px 0px 2px white;
+}
+
+
+#refresher {
+  font-size:22px;
+  margin-right:20px;
+}
+
+#switcher {
+  font-size:16px;
+  margin-left:20px;
+}
