@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gooey</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        .box{position: relative; max-width: 100%; overflow: hidden;}
+        .Playground__svg{
+            width: 100%;
+            height: 800px;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            font-size: 6rem;
+            font-weight: 700;
+            font-family: Arial Black,Arial Bold,Arial,sans-serif;
+            fill: #20b2aa;
+        }
+nav {
+  position: relative;
+  width: 100%;
+  height: 57px;
+  border-radius: 3px;
+  /* background: skyblue; */
+  padding-bottom: 20px;
+}
+nav a {
+  position: relative;
+  float: left;
+  width: calc(100% / 3);
+  height: 100%;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: none;
+}
+nav a div {
+  position: absolute;
+  top: 9px;
+  width: 40px;
+  height: 40px;
+  left: calc(50% - 20px);
+  border-radius: 50%;
+  background: skyblue;
+  -webkit-filter: url("#goo");
+  filter: url("#goo");
+  transition: all ease 0.2s;
+}
+nav a div::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0; left:0;
+    background: skyblue;
+    transform-origin: center bottom;
+    border-radius: 50%;
+    z-index: -1;
+}
+nav a div:after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 6px);
+  width: 12px;
+  height: 12px;
+  display: block;
+  background: skyblue;
+  border-radius: 50%;
+}
+nav a svg {
+  position: relative;
+  top: 15px;
+  width: 25px;
+  height: 27px;
+  fill: #22695a;
+  transition: all 0.3s ease;
+  transition-delay: 0.1s;
+}
+nav a span {
+  display: block;
+  color: #fff;
+  font-size: 11px;
+  margin-top: 10px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+nav a.active svg {
+  fill: #fff;
+  transform: translateY(-7px);
+}
+nav a.active div{
+    transform: translateY(-9px);
+}
+nav a.active div::before {
+  animation: line 1s ease;
+  animation-delay: 0s;
+}
+nav a.active div:after {
+  animation: gooey 1s ease;
+  animation-delay: 0.1s;
+}
+nav a.active span {
+    color: skyblue;
+  transform: translateY(0);
+  opacity: 1;
+}
+nav a:not(.active):hover svg {
+  fill: #252c6b;
+}
+.sprites,
+.svg-gooey {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  user-select: none;
+}
+@-moz-keyframes gooey {
+  50% {
+    transform: translateY(-20px);
+  }
+}
+@-webkit-keyframes gooey {
+  50% {
+    transform: translateY(-20px);
+  }
+}
+@-o-keyframes gooey {
+  50% {
+    transform: translateY(-20px);
+  }
+}
+@keyframes gooey {
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes line {
+  50% {
+    transform: scale(2, 0.8);
+  }
+}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="Playground__svg">
+            <defs>
+                <filter id="filter" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="linearRGB">
+                    <feMorphology operator="dilate" radius="4 4" in="SourceAlpha" result="morphology"></feMorphology>
+                    <feFlood flood-color="#30597E" flood-opacity="1" result="flood"></feFlood>
+                    <feComposite in="flood" in2="morphology" operator="in" result="composite"></feComposite>
+                    <feComposite in="composite" in2="SourceAlpha" operator="out" result="composite1"></feComposite>
+                    <feTurbulence type="fractalNoise" baseFrequency="0.01 0.02" numOctaves="1" seed="0" stitchTiles="stitch" result="turbulence"></feTurbulence>
+                    <feDisplacementMap in="composite1" in2="turbulence" scale="17" xChannelSelector="A" yChannelSelector="A" result="displacementMap"></feDisplacementMap>
+                    <feMerge result="merge">
+                        <feMergeNode in="SourceGraphic" result="mergeNode"></feMergeNode>
+                        <feMergeNode in="displacementMap" result="mergeNode1"></feMergeNode>
+                    </feMerge>
+                </filter>
+            </defs>
+            
+            <image x="10%" y="10%" width="80%" height="50%" preserveAspectRatio="xMidYMid slice" xlink:href="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1443&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" filter="url(#filter)"></image>
+            <g filter="url(#filter)">
+                <text x="50%" y="79%" dy=".0em" text-anchor="middle">SVG</text>
+                <text x="50%" y="79%" dy=".75em" text-anchor="middle">Gooey</text>
+            </g>
+        </svg>
+    </div>
+    <nav>
+        <a class="active" href="javascript:void(0);">
+            <div></div><svg><use xlink:href="#promoted"></use></svg><span>Promoted</span></a>
+        <a href="javascript:void(0)">
+            <div></div><svg><use xlink:href="#search"></use></svg><span>Search</span></a>
+        <a href="javascript:void(0)">
+            <div></div><svg><use xlink:href="#profile"></use></svg><span>Profile</span></a>
+    </nav>
+    <!-- SVG Sprites-->
+    <svg class="sprites">
+        <symbol id="promoted" viewbox="0 0 25 27">
+            <path d="M8.94342328,25.3959474 C5.14987496,22.3676466 5.01119421,16.0723085 8.63367116,11.3349162 C12.2561481,6.59752386 18.2680244,5.21203143 22.0615727,8.24033223 C25.855121,11.268633 25.9938018,17.5639711 22.3713248,22.3013635 C18.7488479,27.0387558 12.7369716,28.4242482 8.94342328,25.3959474 Z M12.0433258,21.4240933 C12.5486463,19.8931888 13.0878216,18.9291121 13.5754202,18.5424943 C14.3401115,17.9361691 14.775634,17.7551931 16.1629253,17.3472112 C16.9360088,17.1198587 17.3812937,16.943494 17.8630789,16.6153189 C19.0024675,15.8392073 20.0822703,14.5520406 21.1352098,12.7589768 C21.4792132,12.1731691 21.2933,11.4133436 20.7199609,11.0618589 C20.1466218,10.7103743 19.4029688,10.9003307 19.0589654,11.4861384 C18.1748679,12.991679 17.3176338,14.0135352 16.5199854,14.5568654 C16.3018634,14.7054424 16.0418386,14.8084309 15.493203,14.9697765 C13.8254768,15.4602302 13.1696048,15.7327697 12.0909777,16.5880151 C11.1449823,17.3380966 10.3927995,18.683043 9.74899818,20.633485 C9.53532458,21.2808244 9.87571062,21.9825804 10.5092717,22.2009008 C11.1428327,22.4192213 11.8296521,22.0714327 12.0433258,21.4240933 Z M10.5800801,6.86143202 C10.3945615,6.14885319 10.132069,5.38738825 9.79440457,4.57529464 C9.53358416,3.94801341 8.8148751,3.6392159 8.18912294,3.8855761 C7.56337078,4.13193629 7.26753514,4.84016261 7.52835555,5.46744385 C8.04183043,6.70236701 8.33812328,7.7538943 8.42793752,8.61167435 C7.96334027,9.0729997 7.52125915,9.57501024 7.10726519,10.116422 C4.72725394,13.2289462 3.80844656,16.9467299 4.3264257,20.1613617 C1.90643639,18.3329281 0.210821476,15.1032109 0.0181395194,11.3467687 C-0.289790274,5.34317015 3.35781246,0.267604944 8.1652966,0.010171505 C11.3504446,-0.160382196 14.24561,1.82681485 15.9264543,4.93344884 C14.1199566,5.09223758 12.273106,5.7498153 10.5800801,6.86143202 Z"></path>
+        </symbol>
+        <symbol id="search" viewbox="0 0 25 27">
+            <path d="M21.8818051,21.7604848 L18.6898308,18.5685105 C19.8210975,17.1885988 20.5,15.4235825 20.5,13.5 C20.5,9.081722 16.918278,5.5 12.5,5.5 C8.081722,5.5 4.5,9.081722 4.5,13.5 C4.5,17.918278 8.081722,21.5 12.5,21.5 C13.9069529,21.5 15.2290761,21.1368008 16.3777257,20.4990461 L19.6400916,23.7614119 C17.6159124,25.1725132 15.1545912,26 12.5,26 C5.59644063,26 0,20.4035594 0,13.5 C0,6.59644063 5.59644063,1 12.5,1 C19.4035594,1 25,6.59644063 25,13.5 C25,16.6664461 23.8226381,19.5579046 21.8818051,21.7604848 Z M12.5,18.5 C9.73857625,18.5 7.5,16.2614237 7.5,13.5 C7.5,10.7385763 9.73857625,8.5 12.5,8.5 C15.2614237,8.5 17.5,10.7385763 17.5,13.5 C17.5,16.2614237 15.2614237,18.5 12.5,18.5 Z"></path>
+        </symbol>
+        <symbol id="profile" viewbox="0 0 25 27">
+            <path d="M3,12.5 L11,12.5 C11.5522847,12.5 12,12.9477153 12,13.5 L12,19.5 C12,20.0522847 11.5522847,20.5 11,20.5 L5,20.5 C4.44771525,20.5 4,20.0522847 4,19.5 L4,16.5 C4,15.9477153 3.55228475,15.5 3,15.5 C2.44771525,15.5 2,15.0522847 2,14.5 L2,13.5 C2,12.9477153 2.44771525,12.5 3,12.5 Z M1,6 L1,4 C1,2.8954305 1.8954305,2 3,2 L22,2 C23.1045695,2 24,2.8954305 24,4 L24,23 C24,24.1045695 23.1045695,25 22,25 L2,25 C1.44771525,25 1,24.5522847 1,24 L1,23 C1,22.4477153 1.44771525,22 2,22 L15,22 C15.5522847,22 16,21.5522847 16,21 L16,8 C16,7.44771525 15.5522847,7 15,7 L11,7 L11,9 C11,9.55228475 10.5522847,10 10,10 L9.5,10 C9.22385763,10 9,10.2238576 9,10.5 C9,10.7761424 8.77614237,11 8.5,11 L7.5,11 C7.22385763,11 7,10.7761424 7,10.5 C7,10.2238576 6.77614237,10 6.5,10 L6,10 C5.44771525,10 5,9.55228475 5,9 L5,7 L2,7 C1.44771525,7 1,6.55228475 1,6 Z M20,9 C19.4477153,9 19,9.44771525 19,10 L19,19 C19,19.5522847 19.4477153,20 20,20 C20.5522847,20 21,19.5522847 21,19 L21,10 C21,9.44771525 20.5522847,9 20,9 Z"></path>
+        </symbol>
+    </svg>
+    <!-- SVG Gooey Filter-->
+    <svg class="svg-gooey" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+            <filter id="goo">
+                <fegaussianblur in="SourceGraphic" stddeviation="4" result="blur"></fegaussianblur>
+                <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></fecolormatrix>
+                <feblend in="SourceGraphic" in2="goo"></feblend>
+            </filter>
+        </defs>
+    </svg>
+
+    <script>
+        $('nav a').click(function() {
+            $('nav a').removeClass('active');
+            return $(this).addClass('active');
+        });
+    </script>
+</body>
+</html>
